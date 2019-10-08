@@ -1,0 +1,36 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+@import "node_modules/azure-devops-ui/Core/_platformCommon.scss";
+
+.container {
+    font-size: $fontSizeM;
+}
+
+.no-data-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.error-message-card {
+    margin: 15px;
+}
+
+.items-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .banner-items {
+        flex: 1 1 auto;
+        margin: 30px;
+    }
+
+    .instruction-text {
+        margin: 15px 0;
+        text-align: center;
+    }
+}

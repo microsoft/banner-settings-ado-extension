@@ -1,0 +1,27 @@
+{
+    "id": "banner-settings-hub-ppe",
+    "name": "Banner Settings (PPE)",
+    "version": "1.0.70",
+    "publisher": "engoy-dev",
+    "public": false,
+    "contributions": [
+        {
+            "id": "hub",
+            "type": "ms.vss-web.hub",
+            "targets": [
+                "ms.vss-web.collection-admin-hub-group"
+            ],
+            "includes": [
+                "ms.vss-tfs-web.tfs-page-data-service",
+                "ms.vss-features.host-navigation-service",
+                "ms.vss-features.extension-data-service",
+                "ms.vss-features.host-dialog-service"
+            ],
+            "properties": {
+                "name": "Banner (PPE)",
+                "uri": "dist/index.html",
+                "icon": "asset://static/sample-icon.png"
+            }
+        }
+    ]
+}

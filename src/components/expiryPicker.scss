@@ -1,0 +1,13 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+.expiry-picker-container {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+
+    .expiry-field {
+        margin-left: 10px;
+        min-width: 200px;
+    }
+}

@@ -1,5 +1,24 @@
+Banner Settings provides a settings pane under Organization Settings to allow Project Collection Administrators to show sitewide banners. Alert your Azure DevOps users to upcoming changes or events without sending out mass emails. Compatible with Azure DevOps Services and Server.
 
-# Contributing
+![](static/screenshot.png)
+
+### Features
+
+- Show banners on any page in Azure DevOps.
+- Choose between three types (levels) of messages: Info, Warning, and Error.
+- Choose an expiration date for a message.
+- Include hyperlinks in your banners using markdown syntax like the banner message below.
+
+```markdown
+Windows October Update released! Please visit the [Windows Insider Blog](https://blogs.windows.com/windowsexperience/tag/windows-insider-program/) for more info.
+```
+
+### Restrictions
+
+- Only one banner can be shown at a time to keep the interface clean. Banners are prioritized by level. For example, if you have posted a warning message and an info message, the info message will only be shown after a user closes the warning message, or you delete the warning message.
+- Banners are restricted to a length of thirty words.
+
+### Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
