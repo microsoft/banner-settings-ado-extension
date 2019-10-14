@@ -1,0 +1,42 @@
+{
+    "manifestVersion": 1,
+    "name": "Banner Settings",
+    "description": "Allows Project Collection Admins to set sitewide banners.",
+    "categories": "Azure Boards",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "icons": {
+        "default": "../static/icon.png"
+    },
+    "content": {
+        "license": {
+            "path": "LICENSE.md"
+        },
+        "details": {
+            "path": "README.md"
+        }
+    },
+    "files": [
+        {
+            "path": "../static",
+            "addressable": true
+        },
+        {
+            "path": "../dist",
+            "addressable": true
+        }
+    ],
+    "scopes": [
+        "vso.settings_write"
+    ],
+    "tags": [
+        "Organization Settings",
+        "Banner",
+        "Alert",
+        "Account",
+        "Admin"
+    ]
+}

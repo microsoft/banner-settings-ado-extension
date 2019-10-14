@@ -1,0 +1,14 @@
+{
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "no-submodule-imports": false,
+        "member-ordering": false,
+        "object-literal-sort-keys": false,
+        "jsx-no-multiline-js": false,
+        "jsx-no-lambda": false,
+        "eofline": true
+    }
+}
