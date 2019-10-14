@@ -18,6 +18,23 @@ Windows October Update released! Please visit the [Windows Insider Blog](https:/
 - Only one banner can be shown at a time to keep the interface clean. Banners are prioritized by level. For example, if you have posted a warning message and an info message, the info message will only be shown after a user closes the warning message, or you delete the warning message.
 - Banners are restricted to a length of thirty words.
 
+### Building the project
+
+Just run:
+
+    npm run build:dev
+    npm run package:dev
+
+This produces a .vsix file which can be uploaded to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/azuredevops)
+
+Publish it to your own publisher by running:
+
+    npm run publish:dev
+
+You can then serve the extension locally and visit your newly published dev environment extension using
+
+    npm run dev
+
 ### Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

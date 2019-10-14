@@ -1,0 +1,36 @@
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '8.12.0'
+  displayName: 'Install Node.js'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+  displayName: 'Install packages'
+
+- script: |
+    npm run lint
+  displayName: 'Lint'
+
+- script: |
+    npm run compile:prod
+  displayName: 'Compile and build (prod)'
+
+- script: |
+    npm run package:prod
+  displayName: 'Package (prod)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './'
+    Contents: "*.vsix"
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy vsix'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'banner-settings-extension'
+    publishLocation: 'Container'
+  displayName: 'Publish the vsix to artifacts'

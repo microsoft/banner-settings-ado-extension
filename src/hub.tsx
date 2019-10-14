@@ -170,7 +170,9 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
     private async onAboutClicked(): Promise<void> {
         const dialogService = await SDK.getService<IHostPageLayoutService>(CommonServiceIds.HostPageLayoutService);
         dialogService.openMessageDialog(
-            `Copyright Microsoft ${new Date().getFullYear()}`,
+            `This is an open source project on Github.
+            To contribute or review the code, please visit https://github.com/microsoft/banner-settings-ado-extension.
+            Copyright Microsoft ${new Date().getFullYear()}`,
             {
                 okText: "Close",
                 showCancel: false,

@@ -1,0 +1,19 @@
+# Azure Pipelines configuration that builds and packages the extension.
+# To learn more about Azure Pipelines: https://aka.ms/learn-azure-pipelines
+
+# This pipeline creates both the prod and ppe vsix extension files.
+# These files are then uploaded to ado pipeline artifacts.
+# When a PR to master is made, a build is kicked off. On success it is deployed to ppe for testing.
+# When the PR is approved and the code is merged to master approval is required for deployment to prod. 
+# ppe will publish the PPE vsix and prod will publish the prod vsix to the visual studio marketplace.
+
+name: 2.$(Date:yyMM).1$(Date:dd)$(Rev:rr)
+
+trigger: [ master ]
+
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azure-pipelines-steps.yml
