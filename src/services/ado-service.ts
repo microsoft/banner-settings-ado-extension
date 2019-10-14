@@ -6,12 +6,12 @@ import * as SDK from "azure-devops-extension-sdk";
 
 import { GlobalMessageBanner, ObjectListWithCount, WebGlobalMessageBanner } from "../models/global-message-banners";
 
-export class VstsService {
-    private static instanceInternal: VstsService;
+class AdoService {
+    private static instanceInternal: AdoService;
     private rootUrlCache: string;
 
-    public static get instance(): VstsService {
-        return this.instanceInternal == null ? new VstsService() : this.instanceInternal;
+    public static get instance(): AdoService {
+        return this.instanceInternal == null ? new AdoService() : this.instanceInternal;
     }
 
     public async getWebGlobalMessageBanners(): Promise<GlobalMessageBanner[]> {
@@ -101,3 +101,5 @@ export class VstsService {
         return this.rootUrlCache;
     }
 }
+
+export default new AdoService();

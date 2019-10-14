@@ -42,7 +42,10 @@ export class ExpiryPicker extends React.Component<IExpiryPickerProps, IExpiryPic
     }
 
     public componentDidUpdate(prevProps: IExpiryPickerProps): void {
-        if (JSON.stringify(prevProps.expiryDate) !== JSON.stringify(this.props.expiryDate)) {
+        if (
+            (prevProps.expiryDate && prevProps.expiryDate.getTime())
+            !== (this.props.expiryDate && this.props.expiryDate.getTime())
+        ) {
             this.setupFields();
         }
     }
@@ -70,7 +73,7 @@ export class ExpiryPicker extends React.Component<IExpiryPickerProps, IExpiryPic
                         className="expiry-field"
                         disabled={!this.state.expiryEnabled}
                         value={this.dateStringObservable}
-                        placeholder="mm/dd/yyyy hh/mm"
+                        placeholder="mm/dd/yyyy hh:mm"
                         ref={(ref) => {
                             if (ref != null && this.textMaskInputElement == null) {
                                 this.textMaskInputElement = mask.createTextMaskInputElement({
@@ -95,7 +98,7 @@ export class ExpiryPicker extends React.Component<IExpiryPickerProps, IExpiryPic
                                     // Date before now
                                     this.setState({ dateError: true });
                                     if (this.props.onParseError != null) {
-                                        this.props.onParseError("Message expires in the past");
+                                        this.props.onParseError("The expiration is in the past");
                                     }
                                 } else {
                                     if (this.props.onChange != null) {
@@ -108,7 +111,7 @@ export class ExpiryPicker extends React.Component<IExpiryPickerProps, IExpiryPic
                                 // Date Invalid
                                 this.setState({ dateError: true });
                                 if (this.props.onParseError != null) {
-                                    this.props.onParseError("Invalid expiry date");
+                                    this.props.onParseError("The expiration is invalid");
                                 }
                             }
                         }}

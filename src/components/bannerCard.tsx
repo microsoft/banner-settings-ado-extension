@@ -16,7 +16,7 @@ import { TextField, TextFieldStyle } from "azure-devops-ui/TextField";
 import { Tooltip } from "azure-devops-ui/TooltipEx";
 
 import { GlobalMessageBanner, Level } from "../models/global-message-banners";
-import { VstsService } from "../services/vsts-service";
+import AdoService from "../services/ado-service";
 import { ExpiryPicker } from "./expiryPicker";
 import { LevelDropdown } from "./levelDropdown";
 
@@ -79,7 +79,6 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
                                 prefixIconProps={{ iconName: Level[this.state.level] }}
                                 value={this.state.message}
                                 onChange={(e, newValue) => {
-
                                     this.setState({
                                         message: newValue,
                                         messageErrorText: this.getMessageError(newValue),
@@ -101,7 +100,7 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
                             <Button
                                 iconProps={{ iconName: "Save" }}
                                 primary={true}
-                                disabled={!this.isSaveEnabled()}
+                                disabled={!this.isSaveEnabled}
                                 onClick={() => this.saveBanner()}
                                 tooltipProps={{ text: "Save" }}
                             />
@@ -156,22 +155,19 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
         banner.expirationDate = this.state.expirationDate;
 
         try {
-            await VstsService.instance.saveWebGlobalMessageBanner(banner);
+            await AdoService.saveWebGlobalMessageBanner(banner);
 
             this.props.onSave(banner);
 
             this.setState({ dirty: false, loading: false });
-
-            this.isSaveEnabled();
         } catch (ex) {
             this.setState({ messageErrorText: "Unable to save" });
         }
-
     }
 
     private async deleteBanner(): Promise<void> {
         try {
-            await VstsService.instance.deleteWebGlobalMessageBanner(this.props.banner);
+            await AdoService.deleteWebGlobalMessageBanner(this.props.banner);
 
             this.props.onDelete();
         } catch (ex) {
@@ -179,20 +175,20 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
         }
     }
 
-    private isSaveEnabled(): boolean {
+    private get isSaveEnabled(): boolean {
         return this.state.dirty
             && this.errorText == null
-            && !this.isMessageExpired();
+            && !this.isMessageExpired;
+    }
+
+    private get isMessageExpired(): boolean {
+        return this.state.expirationDate != null && (this.state.expirationDate < new Date());
     }
 
     private ensureMarkedDirty(): void {
         if (this.state.dirty === false) {
             this.setState({ dirty: true });
         }
-    }
-
-    private isMessageExpired(): boolean {
-        return this.state.expirationDate != null && (this.state.expirationDate < new Date());
     }
 
     private setupFields(): void {
@@ -215,7 +211,7 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
             if (this.state.expirationDate == null) {
                 return {
                     ...Statuses.Success,
-                    text: "This message will be shown indefinitely.",
+                    text: "The message will be shown indefinitely.",
                 };
             } else {
                 const dateMoment = moment(this.state.expirationDate);
@@ -223,12 +219,12 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
                     return {
                         ...Statuses.Warning,
                         // tslint:disable-next-line:max-line-length
-                        text: `This message was shown until ${dateMoment.calendar().toLocaleLowerCase()}. Change the expiration date to show again.`,
+                        text: `The message was shown until ${dateMoment.calendar().toLocaleLowerCase()}. Change the expiration date to show again.`,
                     };
                 } else {
                     return {
                         ...Statuses.Success,
-                        text: `This message will be shown until ${dateMoment.calendar().toLocaleLowerCase()}.`,
+                        text: `The message will be shown until ${dateMoment.calendar().toLocaleLowerCase()}.`,
                     };
                 }
             }

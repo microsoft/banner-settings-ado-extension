@@ -19,7 +19,7 @@ import { ZeroData, ZeroDataActionType } from "azure-devops-ui/ZeroData";
 import { showRootComponent } from "./common/common";
 import { BannerCard } from "./components/bannerCard";
 import { GlobalMessageBanner } from "./models/global-message-banners";
-import { VstsService } from "./services/vsts-service";
+import AdoService from "./services/ado-service";
 
 interface IHubComponentState {
     banners: GlobalMessageBanner[];
@@ -44,7 +44,7 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
         this.setState({ loading: true });
 
         try {
-            const banners = await VstsService.instance.getWebGlobalMessageBanners();
+            const banners = await AdoService.getWebGlobalMessageBanners();
             this.setState({ banners, loading: false });
         } catch (ex) {
             this.setState({ loading: false, errorText: `There was an error loading the banners: ${ex.message}` });
@@ -52,7 +52,6 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
     }
 
     public render(): JSX.Element {
-
         return (
             <Page className="container flex-grow">
                 <Header
@@ -153,9 +152,9 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
 
     private async deleteAllBanners(): Promise<void> {
         try {
-            await VstsService.instance.deleteWebGlobalMessageBanners();
+            await AdoService.deleteWebGlobalMessageBanners();
 
-            // then make it reflect in the ui.
+            // Then make it reflect in the ui.
             this.setState({ banners: [] });
         } catch (ex) {
             this.setState({ errorText: `There was an error deleting all banners: ${ex.message}` });
@@ -171,7 +170,7 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
     private async onAboutClicked(): Promise<void> {
         const dialogService = await SDK.getService<IHostPageLayoutService>(CommonServiceIds.HostPageLayoutService);
         dialogService.openMessageDialog(
-            "Copyright Microsoft 2019",
+            `Copyright Microsoft ${new Date().getFullYear()}`,
             {
                 okText: "Close",
                 showCancel: false,
