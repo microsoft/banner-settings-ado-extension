@@ -12,8 +12,41 @@ name: 2.$(Date:yyMM).1$(Date:dd)$(Rev:rr)
 trigger: [ master ]
 
 jobs:
-- job: Linux
+- job: Build and Package
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'vs2017-win2016'
   steps:
-  - template: azure-pipelines-steps.yml
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+    displayName: 'npm install'
+
+  - script: |
+      npm run lint
+    displayName: 'Lint'
+
+  - script: |
+      npm run build:prod
+    displayName: 'Build (prod)'
+
+  - script: |
+      npm run package:prod
+    displayName: 'Package (prod)'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: './'
+      Contents: "*.vsix"
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy vsix'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'banner-settings-extension'
+      publishLocation: 'Container'
+    displayName: 'Publish the vsix to artifacts'
