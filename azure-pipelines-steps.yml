@@ -14,8 +14,8 @@ steps:
   displayName: 'Lint'
 
 - script: |
-    npm run compile:prod
-  displayName: 'Compile and build (prod)'
+    npm run build:prod
+  displayName: 'Build (prod)'
 
 - script: |
     npm run package:prod
