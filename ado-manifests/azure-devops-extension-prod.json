@@ -1,6 +1,6 @@
 {
     "id": "banner-settings-hub",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "publisher": "ms-eswm",
     "public": true,
     "contributions": [
