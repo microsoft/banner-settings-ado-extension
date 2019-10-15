@@ -18,7 +18,8 @@
     "publish:prod": "npm run publish:vsts-extension --vssconfig=prod",
     "package:vsts-extension": "tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-%npm_config_vssconfig%.json --rev-version",
     "publish:vsts-extension": "tfx extension publish --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-%npm_config_vssconfig%.json",
-    "dev": "webpack-dev-server --hot --progress --colors --content-base ./ --https --port 44405"
+    "dev": "webpack-dev-server --hot --progress --colors --content-base ./ --https --port 44405",
+    "lint": "tslint --project ."
   },
   "dependencies": {
     "azure-devops-extension-api": "~1.157.0",
