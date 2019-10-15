@@ -1,19 +1,26 @@
 {
     "id": "banner-settings-hub",
-    "version": "0.2.3",
+    "name": "Banner Settings",
+    "version": "2.0.0",
     "publisher": "ms-eswm",
     "public": true,
     "contributions": [
         {
-            "id": "collection-level-admin-hub",
+            "id": "hub",
             "type": "ms.vss-web.hub",
             "targets": [
                 "ms.vss-web.collection-admin-hub-group"
             ],
+            "includes": [
+                "ms.vss-tfs-web.tfs-page-data-service",
+                "ms.vss-features.host-navigation-service",
+                "ms.vss-features.extension-data-service",
+                "ms.vss-features.host-dialog-service"
+            ],
             "properties": {
                 "name": "Banner",
-                "order": 100,
-                "uri": "index.html"
+                "uri": "dist/index.html",
+                "icon": "asset://static/sample-icon.png"
             }
         }
     ]
