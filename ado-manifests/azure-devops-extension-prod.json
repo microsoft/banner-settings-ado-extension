@@ -1,0 +1,20 @@
+{
+    "id": "banner-settings-hub",
+    "version": "0.2.2",
+    "publisher": "ms-eswm",
+    "public": true,
+    "contributions": [
+        {
+            "id": "collection-level-admin-hub",
+            "type": "ms.vss-web.hub",
+            "targets": [
+                "ms.vss-web.collection-admin-hub-group"
+            ],
+            "properties": {
+                "name": "Banner",
+                "order": 100,
+                "uri": "index.html"
+            }
+        }
+    ]
+}
