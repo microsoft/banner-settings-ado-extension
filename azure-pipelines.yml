@@ -1,0 +1,52 @@
+# Azure Pipelines configuration that builds and packages the extension.
+# To learn more about Azure Pipelines: https://aka.ms/learn-azure-pipelines
+
+# This pipeline creates both the prod and ppe vsix extension files.
+# These files are then uploaded to ado pipeline artifacts.
+# When a PR to master is made, a build is kicked off. On success it is deployed to ppe for testing.
+# When the PR is approved and the code is merged to master approval is required for deployment to prod. 
+# ppe will publish the PPE vsix and prod will publish the prod vsix to the visual studio marketplace.
+
+name: 2.$(Date:yyMM).1$(Date:dd)$(Rev:rr)
+
+trigger: [ master ]
+
+jobs:
+- job: Build
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install
+    displayName: 'npm install'
+
+  - script: |
+      npm run lint
+    displayName: 'Lint'
+
+  - script: |
+      npm run build:prod
+    displayName: 'Build (prod)'
+
+  - script: |
+      npm run package:prod
+    displayName: 'Package (prod)'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: './'
+      Contents: "*.vsix"
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy vsix'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'banner-settings-extension'
+      publishLocation: 'Container'
+    displayName: 'Publish the vsix to artifacts'

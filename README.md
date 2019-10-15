@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/ms/banner-settings-ado-extension/_apis/build/status/microsoft.banner-settings-ado-extension?branchName=master)](https://dev.azure.com/ms/banner-settings-ado-extension/_build/latest?definitionId=259&branchName=master)
+
 Banner Settings provides a settings pane under Organization Settings to allow Project Collection Administrators to show sitewide banners. Alert your Azure DevOps users to upcoming changes or events without sending out mass emails. Compatible with Azure DevOps Services and Server.
 
 ![](static/screenshot.png)
@@ -17,6 +19,23 @@ Windows October Update released! Please visit the [Windows Insider Blog](https:/
 
 - Only one banner can be shown at a time to keep the interface clean. Banners are prioritized by level. For example, if you have posted a warning message and an info message, the info message will only be shown after a user closes the warning message, or you delete the warning message.
 - Banners are restricted to a length of thirty words.
+
+### Building the project
+
+Just run:
+
+    npm run build:dev
+    npm run package:dev
+
+This produces a .vsix file which can be uploaded to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/azuredevops)
+
+Publish it to your own publisher by running:
+
+    npm run publish:dev
+
+You can then serve the extension locally and visit your newly published dev environment extension using
+
+    npm run dev
 
 ### Contributing
 

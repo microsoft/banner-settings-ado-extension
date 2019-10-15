@@ -1,7 +1,7 @@
 {
     "id": "banner-settings-hub-ppe",
     "name": "Banner Settings (PPE)",
-    "version": "1.0.70",
+    "version": "1.0.71",
     "publisher": "engoy-dev",
     "public": false,
     "contributions": [
