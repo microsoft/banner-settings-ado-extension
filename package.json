@@ -23,7 +23,7 @@
     "azure-devops-extension-api": "~1.157.0",
     "azure-devops-extension-sdk": "~2.0.10",
     "azure-devops-ui": "~1.159.0",
-    "moment": "~2.24.0",
+    "moment": "~2.29.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "text-mask-core": "~5.1.2"
