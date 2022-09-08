@@ -42,7 +42,7 @@
     "rimraf": "~2.6.2",
     "sass-loader": "~7.1.0",
     "style-loader": "~0.23.1",
-    "tfx-cli": "~0.7.10",
+    "tfx-cli": "~0.12.0",
     "ts-loader": "~6.0.4",
     "tslint": "^5.18.0",
     "tslint-react": "^4.0.0",
