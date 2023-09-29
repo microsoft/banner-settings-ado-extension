@@ -4,7 +4,7 @@
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = (env, argv) => {
     const config = {
@@ -73,11 +73,7 @@ module.exports = (env, argv) => {
     }
 
     if (argv.mode === 'production') {
-        config.plugins.push(new OptimizeCSSAssetsPlugin({
-            cssProcessorOptions: {
-                safe: true,
-            }
-        }))
+        config.optimization.minimizer.push(new CssMinimizerPlugin())
     }
 
     return config;
