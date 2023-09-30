@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import "./hub.scss";
+import "azure-devops-ui/Core/override.css";
 
 import * as React from "react";
 
