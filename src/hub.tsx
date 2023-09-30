@@ -27,10 +27,10 @@ interface IHubComponentState {
     errorText: string;
 }
 
-class HubComponent extends React.Component<{}, IHubComponentState> {
+class HubComponent extends React.Component<object, IHubComponentState> {
     public readonly levelList: IListBoxItem[];
 
-    constructor(props: {}) {
+    constructor(props: object) {
         super(props);
 
         this.state = {

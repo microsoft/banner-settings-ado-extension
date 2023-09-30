@@ -73,9 +73,11 @@ module.exports = (env, argv) => {
             }
         },
         plugins: [
-            new CopyWebpackPlugin([
-                { from: "**/*.html", context: "src/" },
-            ]),
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: "**/*.html", context: "src/" }
+                ]
+            }),
             new MiniCssExtractPlugin({
                 filename: "[name]/[name].css",
             }),
