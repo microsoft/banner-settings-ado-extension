@@ -1,8 +1,8 @@
 {
-    "id": "banner-settings-hub-dev",
+    "id": "banner-settings-hub-improved-dev",
     "name": "Banner Settings (Dev)",
     "version": "1.1.3",
-    "publisher": "engoy-dev",
+    "publisher": "razorspoint",
     "public": false,
     "baseUri": "https://localhost:44405/",
     "contributions": [

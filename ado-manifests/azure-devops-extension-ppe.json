@@ -1,8 +1,8 @@
 {
-    "id": "banner-settings-hub-ppe",
+    "id": "banner-settings-hub-improved-ppe",
     "name": "Banner Settings (PPE)",
     "version": "1.0.71",
-    "publisher": "engoy-dev",
+    "publisher": "razorspoint",
     "public": false,
     "contributions": [
         {

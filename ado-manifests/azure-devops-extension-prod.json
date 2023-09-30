@@ -1,8 +1,8 @@
 {
-    "id": "banner-settings-hub",
+    "id": "banner-settings-improved-hub",
     "name": "Banner Settings",
     "version": "2.0.0",
-    "publisher": "ms-eswm",
+    "publisher": "razorspoint",
     "public": true,
     "contributions": [
         {
