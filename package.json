@@ -14,9 +14,9 @@
     "build:prod": "npm run compile",
     "package:prod": "npm run package:vsts-extension --vssconfig=prod",
     "publish:prod": "npm run publish:vsts-extension --vssconfig=prod",
-    "package:vsts-extension": "tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-%npm_config_vssconfig%.json",
-    "publish:vsts-extension": "tfx extension publish --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-%npm_config_vssconfig%.json",
-    "dev": "webpack-dev-server --hot --progress --colors --content-base ./ --https --port 44405",
+    "package:vsts-extension": "tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-$npm_config_vssconfig.json",
+    "publish:vsts-extension": "tfx extension publish --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-$npm_config_vssconfig.json",
+    "dev": "webpack-dev-server --progress --color",
     "lint": "eslint src --ext .ts"
   },
   "dependencies": {
@@ -51,6 +51,6 @@
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^3.11.3"
+    "webpack-dev-server": "^4.15.1"
   }
 }

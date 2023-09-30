@@ -3,7 +3,7 @@
 
 /* tslint:disable:max-classes-per-file */
 
-const markdownLinkRegex = /\[([^\[\]]+)\]\(([^\(\)]+)\)/g;
+const markdownLinkRegex = /\[([^[\]]+)\]\(([^()]+)\)/g;
 const aTagLinkRegex = /<a href=["']([^<>]+)["']>([^<>]+)<\/a>/g;
 
 export enum Priority {

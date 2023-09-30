@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -39,8 +40,8 @@ module.exports = (env, argv) => {
                     use: [
                         MiniCssExtractPlugin.loader,
                         "css-loader",
-                        "azure-devops-ui/buildScripts/css-variables-loader",
                         "sass-loader",
+                        "azure-devops-ui/buildScripts/css-variables-loader",
                     ]
                 },
                 {
@@ -62,6 +63,15 @@ module.exports = (env, argv) => {
                 }
             ]
         },
+        devServer: {
+            port: 44405,
+            hot: true,
+            http2: true,
+            static: {
+                directory: path.join(__dirname, './'),
+                serveIndex: true,
+            }
+        },
         plugins: [
             new CopyWebpackPlugin([
                 { from: "**/*.html", context: "src/" },
@@ -70,6 +80,7 @@ module.exports = (env, argv) => {
                 filename: "[name]/[name].css",
             }),
         ]
+
     }
 
     if (argv.mode === 'production') {
