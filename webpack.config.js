@@ -82,11 +82,14 @@ module.exports = (env, argv) => {
                 filename: "[name]/[name].css",
             }),
         ]
-
     }
 
     if (argv.mode === 'production') {
-        config.optimization.minimizer.push(new CssMinimizerPlugin())
+        config.optimization = {
+            minimizer: [
+                new CssMinimizerPlugin()
+            ]
+        };
     }
 
     return config;
