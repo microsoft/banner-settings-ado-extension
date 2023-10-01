@@ -14,9 +14,12 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2
         with:
+          run_id: ${{ github.event.workflow_run.id }}
           name: banner-settings-extension
+          path: ./artifacts
+          search_artifacts: true
 
       - name: Install TFX CLI
         run: npm install -g tfx-cli
