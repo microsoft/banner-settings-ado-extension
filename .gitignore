@@ -2,3 +2,5 @@ npm-debug.log
 node_modules/
 dist/
 *.vsix
+*.zip
+.DS_Store

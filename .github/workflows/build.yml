@@ -35,6 +35,4 @@ jobs:
         with:
           name: banner-settings-extension
           path: |
-            ${{ github.workspace }}/ado-manifests/*
             ${{ github.workspace }}/dist/*
-            ${{ github.workspace }}/static/*

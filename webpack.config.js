@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
         devtool: argv.mode === 'development' ? 'source-map' : false,
         output: {
             filename: "[name]/[name].js",
-            path: path.join(__dirname, 'dist'),
+            path: path.join(__dirname, 'dist/dist'),
             publicPath: "/dist/"
         },
         resolve: {
@@ -75,7 +75,13 @@ module.exports = (env, argv) => {
         plugins: [
             new CopyWebpackPlugin({
                 patterns: [
-                    { from: "**/*.html", context: "src/" }
+                    { from: "**/*.html", context: "src/" },
+                    { from: "LICENSE", to: "../" },
+                    { from: "README.md", to: "../" },
+                    { from: "static/*", to: "../" },
+                    { from: "ado-manifests/azure-devops-extension-base.json", to: "../ado-manifests/" },
+                    { from: "ado-manifests/azure-devops-extension-test.json", to: "../ado-manifests/" },
+                    { from: "ado-manifests/azure-devops-extension-prod.json", to: "../ado-manifests/" },
                 ]
             }),
             new MiniCssExtractPlugin({

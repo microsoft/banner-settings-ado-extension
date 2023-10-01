@@ -19,7 +19,7 @@ jobs:
         with:
           run_id: ${{ github.event.workflow_run.id }}
           name: banner-settings-extension
-          path: ./artifacts
+          path: ./
           search_artifacts: true
 
       - name: Install TFX CLI
@@ -32,7 +32,7 @@ jobs:
             SHARE_OPTION="--share-with razorspoint-test"
           fi
           tfx extension publish \
-            --manifests ./artifacts/ado-manifests/azure-devops-extension-base.json \
-            --overrides-file ./artifacts/ado-manifests/azure-devops-extension-${{ inputs.env_suffix }}.json \
+            --manifests ./ado-manifests/azure-devops-extension-base.json \
+            --overrides-file ./ado-manifests/azure-devops-extension-${{ inputs.env_suffix }}.json \
             $SHARE_OPTION \
             --token ${{ secrets.azure_devops_token }}
