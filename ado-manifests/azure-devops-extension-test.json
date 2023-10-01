@@ -1,6 +1,6 @@
 {
-    "id": "banner-settings-hub-improved-ppe",
-    "name": "Banner Settings (PPE)",
+    "id": "banner-settings-hub-improved-test",
+    "name": "Banner Settings (Test)",
     "version": "1.0.71",
     "publisher": "razorspoint",
     "public": false,
@@ -18,7 +18,7 @@
                 "ms.vss-features.host-dialog-service"
             ],
             "properties": {
-                "name": "Banner (PPE)",
+                "name": "Banner (Test)",
                 "uri": "dist/index.html",
                 "icon": "asset://static/sample-icon.png"
             }

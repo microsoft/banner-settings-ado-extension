@@ -27,14 +27,14 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Build (prod)
+      - name: Build
         run: npm run build:prod
-
-      - name: Package (prod)
-        run: npm run package:prod
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: banner-settings-extension
-          path: ${{ github.workspace }}/*.vsix
+          path: |
+            ${{ github.workspace }}/ado-manifests/*
+            ${{ github.workspace }}/dist/*
+            ${{ github.workspace }}/static/*

@@ -1,0 +1,38 @@
+name: Stage Release
+on:
+  workflow_call:
+    inputs:
+      env_suffix:
+        required: true
+        type: string
+    secrets:
+      azure_devops_token:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.env_suffix }}
+    steps:
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: banner-settings-extension
+          path: ./artifacts
+          search_artifacts: true
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Publish
+        run: |
+          SHARE_OPTION=""
+          if [[ "${{ inputs.env_suffix }}" == "test" ]]; then
+            SHARE_OPTION="--share-with razorspoint-test"
+          fi
+          tfx extension publish \
+            --manifests ./artifacts/ado-manifests/azure-devops-extension-base.json \
+            --overrides-file ./artifacts/ado-manifests/azure-devops-extension-${{ inputs.env_suffix }}.json \
+            $SHARE_OPTION \
+            --token ${{ secrets.azure_devops_token }}

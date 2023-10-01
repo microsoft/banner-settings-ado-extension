@@ -7,25 +7,19 @@ on:
       - completed
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
-    environment: development
+  deploy_test:
+    name: Test
+    uses: ./.github/workflows/release.job.yml
+    with:
+      env_suffix: test
+    secrets:
+      azure_devops_token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
 
-    steps:
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          run_id: ${{ github.event.workflow_run.id }}
-          name: banner-settings-extension
-          path: ./artifacts
-          search_artifacts: true
-
-      - name: Install TFX CLI
-        run: npm install -g tfx-cli
-
-      - name: Authenticate and Publish
-        env:
-          AZURE_DEVOPS_EXT_PAT: ${{ secrets.AZURE_DEVOPS_TOKEN }}
-        run: |
-          tfx extension publish --manifest-globs vss-extension.json --service-url https://dev.azure.com/myorg --token $AZURE_DEVOPS_EXT_PAT
+  deploy_prod:
+    name: Production
+    needs: deploy_test
+    uses: ./.github/workflows/release.job.yml
+    with:
+      env_suffix: prod
+    secrets:
+      azure_devops_token: ${{ secrets.AZURE_DEVOPS_TOKEN }}

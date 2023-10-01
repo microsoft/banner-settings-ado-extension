@@ -14,18 +14,18 @@
     ],
     "links": {
         "repository": {
-            "uri": "https://github.com/microsoft/banner-settings-ado-extension"
+            "uri": "https://github.com/RazorSPoint/banner-settings-ado-extension"
         },
         "issues": {
-            "uri": "https://github.com/microsoft/banner-settings-ado-extension/issues"
+            "uri": "https://github.com/RazorSPoint/banner-settings-ado-extension/issues"
         },
         "support": {
-            "uri": "https://github.com/microsoft/banner-settings-ado-extension/issues"
+            "uri": "https://github.com/RazorSPoint/banner-settings-ado-extension/issues"
         }
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/microsoft/banner-settings-ado-extension"
+        "uri": "https://github.com/RazorSPoint/banner-settings-ado-extension"
     },
     "icons": {
         "default": "../static/icon.png"

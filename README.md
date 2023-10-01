@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/ms/banner-settings-ado-extension/_apis/build/status/microsoft.banner-settings-ado-extension?branchName=master)](https://dev.azure.com/ms/banner-settings-ado-extension/_build/latest?definitionId=259&branchName=master)
+[![Build Extension](https://github.com/RazorSPoint/banner-settings-ado-extension/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/RazorSPoint/banner-settings-ado-extension/actions/workflows/build.yml)
 
 Banner Settings provides a settings pane under Organization Settings to allow Project Collection Administrators to show sitewide banners. Alert your Azure DevOps users to upcoming changes or events without sending out mass emails. Compatible with Azure DevOps Services and Server.
 
