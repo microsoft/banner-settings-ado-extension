@@ -1,0 +1,28 @@
+name: Build Extension
+
+on:
+  workflow_run:
+    workflows: ["Build and Deploy Extension"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/master' }}
+    environment: development
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: banner-settings-extension
+
+      - name: Install TFX CLI
+        run: npm install -g tfx-cli
+
+      - name: Authenticate and Publish
+        env:
+          AZURE_DEVOPS_EXT_PAT: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        run: |
+          tfx extension publish --manifest-globs vss-extension.json --service-url https://dev.azure.com/myorg --token $AZURE_DEVOPS_EXT_PAT
