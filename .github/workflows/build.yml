@@ -33,9 +33,6 @@ jobs:
       - name: Package (prod)
         run: npm run package:prod
 
-      - name: Copy vsix
-        run: cp *.vsix ${{ github.workspace }}
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
