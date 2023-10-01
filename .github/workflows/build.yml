@@ -1,0 +1,43 @@
+name: Build Extension
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "10.x"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build (prod)
+        run: npm run build:prod
+
+      - name: Package (prod)
+        run: npm run package:prod
+
+      - name: Copy vsix
+        run: cp *.vsix ${{ github.workspace }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: banner-settings-extension
+          path: ${{ github.workspace }}/*.vsix
