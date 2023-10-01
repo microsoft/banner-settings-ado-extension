@@ -1,8 +1,8 @@
-name: Build Extension
+name: Release Extension
 
 on:
   workflow_run:
-    workflows: ["Build and Deploy Extension"]
+    workflows: ["Build Extension"]
     types:
       - completed
 
