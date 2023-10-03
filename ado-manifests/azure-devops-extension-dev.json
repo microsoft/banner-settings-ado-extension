@@ -20,7 +20,7 @@
             ],
             "properties": {
                 "name": "Banner (Dev)",
-                "uri": "app/index.html",
+                "uri": "dist/index.html",
                 "icon": "asset://static/sample-icon.png"
             }
         }
