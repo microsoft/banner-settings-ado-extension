@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
         devtool: argv.mode === 'development' ? 'source-map' : false,
         output: {
             filename: "[name]/[name].js",
-            path: path.join(__dirname, 'dist/dist'),
+            path: path.join(__dirname, 'dist'),
             publicPath: "/dist/"
         },
         resolve: {

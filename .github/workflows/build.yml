@@ -36,3 +36,8 @@ jobs:
           name: banner-settings-extension
           path: |
             ${{ github.workspace }}/dist/*
+            ${{ github.workspace }}/ado-manifests/*
+            ${{ github.workspace }}/static/*
+            ${{ github.workspace }}/LICENSE
+            ${{ github.workspace }}/README.md
+            ${{ github.workspace }}/LICENSE
