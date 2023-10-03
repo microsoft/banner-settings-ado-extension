@@ -1,7 +1,7 @@
 {
     "id": "banner-settings-improved-hub",
     "name": "Banner Settings",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "publisher": "razorspoint",
     "public": true,
     "contributions": [
