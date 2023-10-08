@@ -3,8 +3,17 @@
 
 /* tslint:disable:max-classes-per-file */
 
-const markdownLinkRegex = /\[([^[\]]+)\]\(([^()]+)\)/g;
-const aTagLinkRegex = /<a href=["']([^<>]+)["']>([^<>]+)<\/a>/g;
+const toHtmlConfigs: ReplacementConfig[] = [
+    { regex: /\*\*([^\*\*]+)\*\*/g, replaceWith: "<strong>$1</strong>" },  // Bold
+    { regex: /\*([^\*]+)\*/g, replaceWith: "<em>$1</em>" },  // Italic
+    { regex: /\[([^[\]]+)\]\(([^()]+)\)/g, replaceWith: "<a href='$2'>$1</a>" }  // Links
+];
+
+const toMarkdownConfigs: ReplacementConfig[] = [
+    { regex: /<strong>([^<]+)<\/strong>/g, replaceWith: "**$1**" },  // Bold
+    { regex: /<em>([^<]+)<\/em>/g, replaceWith: "*$1*" },  // Italic
+    { regex: /<a href=["']([^<>]+)["']>([^<>]+)<\/a>/g, replaceWith: "[$2]($1)" }  // Links  
+];
 
 export enum Priority {
     p0, p1, p2,
@@ -12,6 +21,12 @@ export enum Priority {
 
 export enum Level {
     Info, Warning, Error,
+}
+
+// Define a configuration interface for replacements
+interface ReplacementConfig {
+    regex: RegExp;
+    replaceWith: string;
 }
 
 export class GlobalMessageBanner {
@@ -45,7 +60,7 @@ export class GlobalMessageBanner {
             const body = entity.value[title];
             banner.priority = Priority[title.slice(0, 2)];
             banner.messageId = title.slice(3);
-            banner.message = body.message.replace(aTagLinkRegex, `[$2]($1)`);
+            banner.message = this.replaceMultipleFormats(body.message, toMarkdownConfigs),
             banner.level = Level[this.fixTypeCase(body.level)];
             banner.expirationDate = body.expirationDate != null ? new Date(body.expirationDate) : null;
             bannerList.push(banner);
@@ -53,13 +68,17 @@ export class GlobalMessageBanner {
         return bannerList;
     }
 
-    public toWebEntity(): {[name: string]: WebGlobalMessageBanner} {
-        const ret: {[name: string]: WebGlobalMessageBanner} = {};
+    public static replaceMultipleFormats(message: string, configs: ReplacementConfig[]): string {
+        return configs.reduce((acc, config) => acc.replace(config.regex, config.replaceWith), message);
+    }
+
+    public toWebEntity(): { [name: string]: WebGlobalMessageBanner } {
+        const ret: { [name: string]: WebGlobalMessageBanner } = {};
         const title = `GlobalMessageBanners/${Priority[this.priority]}-${this.messageId}`;
 
         ret[title] = {
             level: Level[this.level],
-            message: this.message.replace(markdownLinkRegex, `<a href='$2'>$1</a>`),
+            message: GlobalMessageBanner.replaceMultipleFormats(this.message, toMarkdownConfigs),
         };
 
         if (this.expirationDate != null) {
@@ -79,5 +98,5 @@ export class WebGlobalMessageBanner {
 
 export class ObjectListWithCount<T> {
     public count: number;
-    public value: {[name: string]: T};
+    public value: { [name: string]: T };
 }
