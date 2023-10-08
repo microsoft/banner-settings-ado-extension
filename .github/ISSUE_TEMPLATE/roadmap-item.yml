@@ -1,0 +1,43 @@
+name: Internal Roadmap Item
+description: File a feature request
+title: "[Feature Request]: "
+labels: ["feature-request", "roadmap item"]
+assignees:
+  - sebastianschuetze
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the feature or problem you're experiencing.
+      placeholder: Briefly describe your feature idea.
+    validations:
+      required: true
+  - type: textarea
+    id: intended-outcome
+    attributes:
+      label: Intended Outcome
+      description: What will this feature enable or solve?
+      placeholder: Describe the goal of this feature.
+    validations:
+      required: true
+  - type: textarea
+    id: how-will-it-work
+    attributes:
+      label: How will it work?
+      description: Explain the technical implementation or design of this feature.
+      placeholder: Explain how you envision this feature working.
+    validations:
+      required: true
+  - type: input
+    id: original-request
+    attributes:
+      label: Original Request (Optional)
+      description: If this issue is based on a previous discussion, request, or issue, please reference it here by providing the URL.
+      placeholder: Paste the URL here.
+    validations:
+      required: false
