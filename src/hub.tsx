@@ -172,12 +172,12 @@ class HubComponent extends React.Component<object, IHubComponentState> {
         const dialogService = await SDK.getService<IHostPageLayoutService>(CommonServiceIds.HostPageLayoutService);
         dialogService.openMessageDialog(
             `This is an open source project on Github.
-            To contribute or review the code, please visit https://github.com/microsoft/banner-settings-ado-extension.
-            Copyright Microsoft ${new Date().getFullYear()}`,
+            To contribute or review the code, please visit https://github.com/RazorSPoint/banner-settings-ado-extension.
+            Copyright RazorSPoint (original code from Microsoft) ${new Date().getFullYear()}`,
             {
                 okText: "Close",
                 showCancel: false,
-                title: "About Banner Settings",
+                title: "About Banner Settings Improved",
             },
         );
     }

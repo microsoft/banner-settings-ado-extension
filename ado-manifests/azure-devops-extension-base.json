@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "name": "Banner Settings",
+    "name": "Banner Settings improved",
     "description": "Allows Project Collection Admins to set sitewide banners.",
     "categories": "Azure Boards",
     "targets": [

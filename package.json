@@ -1,5 +1,5 @@
 {
-  "name": "banner-settings-app",
+  "name": "banner-settings-improved-app",
   "version": "0.0.0",
   "scripts": {
     "clean": "rimraf ./dist",
