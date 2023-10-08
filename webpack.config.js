@@ -52,10 +52,9 @@ module.exports = (env, argv) => {
                     ],
                 },
                 {
-                    test: /\.woff$/,
-                    use: [{
-                        loader: 'base64-inline-loader'
-                    }]
+                    test: /\.(woff|woff2)$/,
+                    use: ['base64-inline-loader'],
+                    type: 'javascript/auto'
                 },
                 {
                     test: /\.html$/,
