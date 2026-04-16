@@ -38,9 +38,8 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSpec: '22.x'
-
-    - script: npm install -g typings tfx-cli
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
 
     - template: build.yml@pipeline-templates
       parameters:
