@@ -51,6 +51,10 @@ stages:
 #        outputPath: 'out'
 #        rootPath: '$(Build.SourcesDirectory)'
 
+    - task: TfxInstaller@5
+      inputs:
+        version: 'builtin'
+
     - script: |
         tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
       displayName: 'Package development extension'
