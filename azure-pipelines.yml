@@ -41,20 +41,6 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
 
-#    - template: build.yml@pipeline-templates
-#      parameters:
-#        workingDirectory: '$(Build.SourcesDirectory)'
-
-#    - template: package.yml@pipeline-templates
-#      parameters:
-#        extensionName: $(extensionName)
-#        outputPath: 'out'
-#        rootPath: '$(Build.SourcesDirectory)'
-
-#    - task: TfxInstaller@5
-#      inputs:
-#        version: '0.7.10'
-
     - script: |
         npm install
       displayName: 'npm install'
@@ -63,9 +49,9 @@ stages:
         npm install -g tfx-cli@0.7.10
       displayName: 'npm install tfx'
 
-#    - script: |
-#        npm run lint
-#      displayName: 'Lint'
+    - script: |
+        npm run lint
+      displayName: 'Lint'
 
     - script: |
         npm run build:prod
@@ -78,10 +64,6 @@ stages:
     - script: |
         tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-prod.json
       displayName: 'Package extension'
-
-#    - script: |
-#        npm run package:prod
-#      displayName: 'Package (prod)'
 
 - stage: 'DeployDev'
   displayName: 'Deploy to dev'
