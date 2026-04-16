@@ -53,7 +53,7 @@ stages:
 
     - task: TfxInstaller@5
       inputs:
-        version: 'builtin'
+        version: 'latest'
 
     - script: |
         tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
