@@ -44,13 +44,13 @@ stages:
 
     - template: build.yml@pipeline-templates
       parameters:
-        workingDirectory: '$(Build.SourcesDirectory)/extension'
+        workingDirectory: '$(Build.SourcesDirectory)'
 
     - template: package.yml@pipeline-templates
       parameters:
         extensionName: $(extensionName)
         outputPath: 'out'
-        rootPath: '$(Build.SourcesDirectory)/extension'
+        rootPath: '$(Build.SourcesDirectory)'
 
 - stage: 'DeployDev'
   displayName: 'Deploy to dev'
