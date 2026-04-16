@@ -12,6 +12,7 @@
     "package:ppe": "npm run package:vsts-extension --vssconfig=ppe",
     "publish:ppe": "npm run publish:vsts-extension --vssconfig=ppe",
     "build:prod": "npm run compile",
+    "build:release": "npm run compile",
     "package:prod": "npm run package:vsts-extension --vssconfig=prod",
     "publish:prod": "npm run publish:vsts-extension --vssconfig=prod",
     "package:vsts-extension": "tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-%npm_config_vssconfig%.json",
