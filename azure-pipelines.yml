@@ -51,9 +51,13 @@ stages:
         outputPath: 'out'
         rootPath: '$(Build.SourcesDirectory)'
 
-#  - script: |
-#      npm run build:prod
-#    displayName: 'Build (prod)'
+    - script: |
+        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
+      displayName: 'Package development extension'
+
+    - script: |
+        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-prod.json
+      displayName: 'Package extension'
 
 #    - script: |
 #        npm run package:prod
