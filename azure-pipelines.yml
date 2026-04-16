@@ -14,9 +14,6 @@ variables:
 
 name: $(major).$(minor)$(rev:.r)
 
-pool:
-  vmImage: 'vs2017-win2016'
-
 trigger:
   branches:
     include:
@@ -37,7 +34,7 @@ stages:
   - job: 'BuildPack'
     displayName: "Build and package"
     pool:
-      vmImage: ubuntu-latest
+      vmImage: 'vs2017-win2016'
     steps:
     - task: NodeTool@0
       inputs:
