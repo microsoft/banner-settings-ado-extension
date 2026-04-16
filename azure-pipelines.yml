@@ -45,11 +45,19 @@ stages:
       parameters:
         workingDirectory: '$(Build.SourcesDirectory)'
 
-    - template: package.yml@pipeline-templates
-      parameters:
-        extensionName: $(extensionName)
-        outputPath: 'out'
-        rootPath: '$(Build.SourcesDirectory)'
+#    - template: package.yml@pipeline-templates
+#      parameters:
+#        extensionName: $(extensionName)
+#        outputPath: 'out'
+#        rootPath: '$(Build.SourcesDirectory)'
+
+#  - script: |
+#      npm run build:prod
+#    displayName: 'Build (prod)'
+
+    - script: |
+        npm run package:prod
+      displayName: 'Package (prod)'
 
 - stage: 'DeployDev'
   displayName: 'Deploy to dev'
