@@ -1,52 +1,96 @@
-# Azure Pipelines configuration that builds and packages the extension.
-# To learn more about Azure Pipelines: https://aka.ms/learn-azure-pipelines
+variables:
+- name: major
+  value: '2'
+- name: minor
+  value: '1911'
+- name: extensionName
+  value: 'banner-settings-hub'
+- name: marketplaceServiceConnection
+  value: 'marketplaceServiceConnection'
+- name: publisherId
+  value: 'ms-devlabs'
+- name: publicExtensionName
+  value: "Banner Settings"
 
-# This pipeline creates both the prod and ppe vsix extension files.
-# These files are then uploaded to ado pipeline artifacts.
-# When a PR to master is made, a build is kicked off. On success it is deployed to ppe for testing.
-# When the PR is approved and the code is merged to master approval is required for deployment to prod. 
-# ppe will publish the PPE vsix and prod will publish the prod vsix to the visual studio marketplace.
+name: $(major).$(minor)$(rev:.r)
 
-name: 2.$(Date:yyMM).1$(Date:dd)$(Rev:rr)
+trigger:
+  branches:
+    include:
+    - main
 
-trigger: [ master ]
+pr: none
 
-jobs:
-- job: Build
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node.js'
+resources:
+  repositories:
+    - repository: pipeline-templates
+      type: git
+      name: DevLabs Extensions/pipeline-templates
+      ref: main
 
-  - script: |
-      npm install
-    displayName: 'npm install'
+stages:
+- stage: 'Build'
+  jobs:
+  - job: 'BuildPack'
+    displayName: "Build and package"
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '22.x'
 
-  - script: |
-      npm run lint
-    displayName: 'Lint'
+    - script: npm install -g typings tfx-cli
 
-  - script: |
-      npm run build:prod
-    displayName: 'Build (prod)'
+    - template: build.yml@pipeline-templates
+      parameters:
+        workingDirectory: '$(Build.SourcesDirectory)/extension'
 
-  - script: |
-      npm run package:prod
-    displayName: 'Package (prod)'
+    - template: package.yml@pipeline-templates
+      parameters:
+        extensionName: $(extensionName)
+        outputPath: 'out'
+        rootPath: '$(Build.SourcesDirectory)/extension'
 
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: './'
-      Contents: "*.vsix"
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    displayName: 'Copy vsix'
+- stage: 'DeployDev'
+  displayName: 'Deploy to dev'
+  dependsOn: Build
+  condition: succeeded()
+  jobs: 
+  - template: deploy.yml@pipeline-templates
+    parameters:
+      environment: 'dev'
+      extensionName: $(extensionName)
+      marketplaceConnectedServiceName: $(marketplaceServiceConnection)
+      publisherId: $(publisherId)
+      publicExtensionName: $(publicExtensionName)
+      updateTaskVersion: true
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'banner-settings-extension'
-      publishLocation: 'Container'
-    displayName: 'Publish the vsix to artifacts'
+- stage: 'DeployTest'
+  displayName: 'Deploy to Test'
+  dependsOn: DeployDev
+  condition: succeeded()
+  jobs:
+  - template: deploy.yml@pipeline-templates
+    parameters:
+      environment: 'test'
+      extensionName: $(extensionName)
+      marketplaceConnectedServiceName: $(marketplaceServiceConnection)
+      publisherId: $(publisherId)
+      publicExtensionName: $(publicExtensionName)
+      updateTaskVersion: true
+
+- stage: 'DeployRelease'
+  displayName: 'Deploy Release'
+  dependsOn: DeployTest
+  condition: succeeded()
+  jobs:
+  - template: deploy.yml@pipeline-templates
+    parameters:
+      environment: 'public'
+      extensionName: $(extensionName)
+      marketplaceConnectedServiceName: $(marketplaceServiceConnection)
+      publisherId: $(publisherId)
+      publicExtensionName: $(publicExtensionName)
+      extensionVisibility: 'public'
+      updateTaskVersion: true
