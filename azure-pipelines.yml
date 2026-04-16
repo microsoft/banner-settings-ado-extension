@@ -45,11 +45,11 @@ stages:
       parameters:
         workingDirectory: '$(Build.SourcesDirectory)'
 
-    - template: package.yml@pipeline-templates
-      parameters:
-        extensionName: $(extensionName)
-        outputPath: 'out'
-        rootPath: '$(Build.SourcesDirectory)'
+#    - template: package.yml@pipeline-templates
+#      parameters:
+#        extensionName: $(extensionName)
+#        outputPath: 'out'
+#        rootPath: '$(Build.SourcesDirectory)'
 
     - script: |
         tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
