@@ -72,6 +72,20 @@ stages:
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
       displayName: 'Copy vsix'
 
+    - task: PowerShell@2
+      displayName: Rename VSIX file (dynamic)
+      inputs:
+        targetType: 'inline'
+        script: |
+          $file = Get-ChildItem -Filter "$(Build.ArtifactStagingDirectory)\engoy-dev.banner-settings-hub-dev-*.vsix" | Select-Object -First 1
+
+          if ($file) {
+              Rename-Item -Path $file.FullName -NewName "banner-settings-hub-dev.vsix"
+              Write-Host "Renamed $($file.Name) -> banner-settings-hub-dev.vsix"
+          } else {
+              Write-Error "No matching VSIX file found"
+          }
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
