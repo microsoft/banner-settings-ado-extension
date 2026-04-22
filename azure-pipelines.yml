@@ -77,7 +77,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          $file = Get-ChildItem -Filter "$(Build.ArtifactStagingDirectory)\engoy-dev.banner-settings-hub-dev-*.vsix" | Select-Object -First 1
+          $file = Get-ChildItem -Filter "$(Build.ArtifactStagingDirectory)/engoy-dev.banner-settings-hub-dev-*.vsix" | Select-Object -First 1
 
           if ($file) {
               Rename-Item -Path $file.FullName -NewName "banner-settings-hub-dev.vsix"
