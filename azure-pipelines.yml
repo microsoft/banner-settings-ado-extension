@@ -65,6 +65,20 @@ stages:
         tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-prod.json
       displayName: 'Package extension'
 
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: './'
+        Contents: "*.vsix"
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      displayName: 'Copy vsix'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+      displayName: 'Publish the vsix to artifacts'
+
 - stage: 'DeployDev'
   displayName: 'Deploy to dev'
   dependsOn: Build
