@@ -43,12 +43,14 @@ export class GlobalMessageBanner {
         Object.keys(entity.value).forEach((title) => {
             const banner = new GlobalMessageBanner();
             const body = entity.value[title];
-            banner.priority = Priority[title.slice(0, 2)];
-            banner.messageId = title.slice(3);
-            banner.message = body.message.replace(aTagLinkRegex, `[$2]($1)`);
-            banner.level = Level[this.fixTypeCase(body.level)];
-            banner.expirationDate = body.expirationDate != null ? new Date(body.expirationDate) : null;
-            bannerList.push(banner);
+            if (body.level != undefined) { // level property is underfined for Banners set by MS
+                banner.priority = Priority[title.slice(0, 2)];
+                banner.messageId = title.slice(3);
+                banner.message = body.message.replace(aTagLinkRegex, `[$2]($1)`);
+                banner.level = Level[this.fixTypeCase(body.level)];
+                banner.expirationDate = body.expirationDate != null ? new Date(body.expirationDate) : null;
+                bannerList.push(banner);
+            }
         });
         return bannerList;
     }
