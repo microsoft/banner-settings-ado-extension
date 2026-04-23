@@ -1,0 +1,136 @@
+variables:
+- name: major
+  value: '2'
+- name: minor
+  value: '1911'
+- name: extensionName
+  value: 'banner-settings-hub'
+- name: marketplaceServiceConnection
+  value: 'marketplaceServiceConnection'
+- name: publisherId
+  value: 'ms-devlabs'
+- name: publicExtensionName
+  value: "Banner Settings"
+
+name: $(major).$(minor)$(rev:.r)
+
+trigger:
+  branches:
+    include:
+    - main
+
+pr: none
+
+resources:
+  repositories:
+    - repository: pipeline-templates
+      type: git
+      name: DevLabs Extensions/pipeline-templates
+      ref: main
+
+stages:
+- stage: 'Build'
+  jobs:
+  - job: 'BuildPack'
+    displayName: "Build and package"
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+        npm install
+      displayName: 'npm install'
+
+    - script: |
+        npm install -g tfx-cli@0.7.10
+      displayName: 'npm install tfx'
+
+    - script: |
+        npm run lint
+      displayName: 'Lint'
+
+    - script: |
+        npm run build:prod
+      displayName: 'Build (prod)'
+
+    - script: |
+        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
+      displayName: 'Package development extension'
+
+    - script: |
+        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-prod.json
+      displayName: 'Package extension'
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: './'
+        Contents: "*.vsix"
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      displayName: 'Copy vsix'
+
+    - task: PowerShell@2
+      displayName: Rename VSIX file dev (dynamic)
+      inputs:
+        targetType: 'inline'
+        script: |
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\engoy-dev.banner-settings-hub-dev-*.vsix" | Select-Object -First 1
+
+          if ($file) {
+              Rename-Item -Path $file.FullName -NewName "banner-settings-hub-dev.vsix"
+              Write-Host "Renamed $($file.Name) -> banner-settings-hub-dev.vsix"
+          } else {
+              Write-Error "No matching VSIX file found"
+          }
+
+    - task: PowerShell@2
+      displayName: Rename VSIX file (dynamic)
+      inputs:
+        targetType: 'inline'
+        script: |
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-eswm.banner-settings-hub-*.vsix" | Select-Object -First 1
+
+          if ($file) {
+              Rename-Item -Path $file.FullName -NewName "banner-settings-hub-release.vsix"
+              Write-Host "Renamed $($file.Name) -> banner-settings-hub-release.vsix"
+          } else {
+              Write-Error "No matching VSIX file found"
+          }
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+      displayName: 'Publish the vsix to artifacts'
+
+- stage: 'DeployDev'
+  displayName: 'Deploy to dev'
+  dependsOn: Build
+  condition: succeeded()
+  jobs: 
+  - template: deploy.yml@pipeline-templates
+    parameters:
+      environment: 'dev'
+      extensionName: $(extensionName)
+      marketplaceConnectedServiceName: $(marketplaceServiceConnection)
+      publisherId: $(publisherId)
+      publicExtensionName: $(publicExtensionName)
+      updateTaskVersion: true
+
+- stage: 'DeployTest'
+  displayName: 'Deploy to Test'
+  dependsOn: DeployDev
+  condition: succeeded()
+  jobs:
+  - template: deploy.yml@pipeline-templates
+    parameters:
+      environment: 'test'
+      extensionName: $(extensionName)
+      marketplaceConnectedServiceName: $(marketplaceServiceConnection)
+      publisherId: $(publisherId)
+      publicExtensionName: $(publicExtensionName)
+      updateTaskVersion: true
