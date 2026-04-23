@@ -73,7 +73,7 @@ stages:
       displayName: 'Copy vsix'
 
     - task: PowerShell@2
-      displayName: Rename VSIX file (dynamic)
+      displayName: Rename VSIX file dev (dynamic)
       inputs:
         targetType: 'inline'
         script: |
@@ -82,6 +82,20 @@ stages:
           if ($file) {
               Rename-Item -Path $file.FullName -NewName "banner-settings-hub-dev.vsix"
               Write-Host "Renamed $($file.Name) -> banner-settings-hub-dev.vsix"
+          } else {
+              Write-Error "No matching VSIX file found"
+          }
+
+    - task: PowerShell@2
+      displayName: Rename VSIX file (dynamic)
+      inputs:
+        targetType: 'inline'
+        script: |
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-eswm.banner-settings-hub-*.vsix" | Select-Object -First 1
+
+          if ($file) {
+              Rename-Item -Path $file.FullName -NewName "banner-settings-hub-release.vsix"
+              Write-Host "Renamed $($file.Name) -> banner-settings-hub-release.vsix"
           } else {
               Write-Error "No matching VSIX file found"
           }
