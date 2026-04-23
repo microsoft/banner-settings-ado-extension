@@ -120,18 +120,3 @@ stages:
       publisherId: $(publisherId)
       publicExtensionName: $(publicExtensionName)
       updateTaskVersion: true
-
-- stage: 'DeployRelease'
-  displayName: 'Deploy Release'
-  dependsOn: DeployTest
-  condition: succeeded()
-  jobs:
-  - template: deploy.yml@pipeline-templates
-    parameters:
-      environment: 'public'
-      extensionName: $(extensionName)
-      marketplaceConnectedServiceName: $(marketplaceServiceConnection)
-      publisherId: $(publisherId)
-      publicExtensionName: $(publicExtensionName)
-      extensionVisibility: 'public'
-      updateTaskVersion: true
