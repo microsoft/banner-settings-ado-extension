@@ -60,7 +60,7 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
                     titleSize={TitleSize.Large}
                 />
                 {
-                    this.state.errorText == null ? null :
+                    this.state.errorText == null ? null : (
                         <MessageCard
                             className="error-message-card"
                             onDismiss={() => this.setState({ errorText: null })}
@@ -68,6 +68,7 @@ class HubComponent extends React.Component<{}, IHubComponentState> {
                         >
                             {this.state.errorText}
                         </MessageCard>
+                    )
                 }
                 {this.state.banners != null && this.state.banners.length !== 0
                     ? (

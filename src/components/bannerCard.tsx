@@ -112,27 +112,29 @@ export class BannerCard extends React.Component<IBannerCardProps, IBannerCardSta
                             />
                         </ButtonGroup>
                     </div>
-                    {this.state.expanded === true ? <div className="banner-body">
-                        <FormItem label="Level" className="level-dropdown">
-                            <LevelDropdown
-                                level={this.state.level}
-                                onChange={(level) => {
-                                    this.setState({ level });
+                    {this.state.expanded === true ? (
+                        <div className="banner-body">
+                            <FormItem label="Level" className="level-dropdown">
+                                <LevelDropdown
+                                    level={this.state.level}
+                                    onChange={(level) => {
+                                        this.setState({ level });
+                                        this.ensureMarkedDirty();
+                                    }}
+                                />
+                            </FormItem>
+                            <ExpiryPicker
+                                expiryDate={this.state.expirationDate}
+                                onChange={(expirationDate) => {
+                                    this.setState({ expirationDate, expiryErrorText: null });
                                     this.ensureMarkedDirty();
                                 }}
+                                onParseError={(errorMessage) => {
+                                    this.setState({ expiryErrorText: errorMessage });
+                                }}
                             />
-                        </FormItem>
-                        <ExpiryPicker
-                            expiryDate={this.state.expirationDate}
-                            onChange={(expirationDate) => {
-                                this.setState({ expirationDate, expiryErrorText: null });
-                                this.ensureMarkedDirty();
-                            }}
-                            onParseError={(errorMessage) => {
-                                this.setState({ expiryErrorText: errorMessage });
-                            }}
-                        />
-                    </div> : null}
+                        </div>
+                    ) : null}
                 </div>
             </Card>
         );
