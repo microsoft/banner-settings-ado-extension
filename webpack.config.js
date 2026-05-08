@@ -73,7 +73,12 @@ module.exports = (env, argv) => {
     }
 
     if (argv.mode === 'production') {
-        config.plugins.push(new CssMinimizerPlugin())
+        config.optimization = {
+            minimizer: [
+                `...`,
+                new CssMinimizerPlugin()
+            ]
+        }
     }
 
     return config;
