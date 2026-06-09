@@ -58,11 +58,11 @@ stages:
       displayName: 'Build (prod)'
 
     - script: |
-        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
+        tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/dev.json
       displayName: 'Package development extension'
 
     - script: |
-        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-prod.json
+        tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/release.json
       displayName: 'Package extension'
 
     - task: CopyFiles@2
