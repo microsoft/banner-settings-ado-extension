@@ -54,8 +54,8 @@ stages:
       displayName: 'Lint'
 
     - script: |
-        npm run build:prod
-      displayName: 'Build (prod)'
+        npm run build:release
+      displayName: 'Build (release)'
 
     - script: |
         tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/dev.json

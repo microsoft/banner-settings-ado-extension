@@ -1,4 +1,4 @@
--{
+{
   "name": "banner-settings-app",
   "version": "0.0.0",
   "scripts": {
@@ -11,9 +11,9 @@
     "build:ppe": "npm run compile",
     "package:ppe": "npm run package:vsts-extension --vssconfig=ppe",
     "publish:ppe": "npm run publish:vsts-extension --vssconfig=ppe",
-    "build:prod": "npm run compile",
-    "package:prod": "npm run package:vsts-extension --vssconfig=prod",
-    "publish:prod": "npm run publish:vsts-extension --vssconfig=prod",
+    "build:release": "npm run compile",
+    "package:release": "npm run package:vsts-extension --vssconfig=release",
+    "publish:release": "npm run publish:vsts-extension --vssconfig=release",
     "build:release": "npm run compile",
     "package:vsts-extension": "tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/%npm_config_vssconfig%.json",
     "publish:vsts-extension": "tfx extension publish --manifests ./azure-devops-extension.json --overrides-file ./configs/%npm_config_vssconfig%.json",
