@@ -1,0 +1,84 @@
+{
+    "manifestVersion": 1,
+    "id": "banner-settings-hub",
+    "version": "2.0.0",
+    "name": "Banner Settings",
+    "description": "Allows Project Collection Admins to set sitewide banners.",
+    "publisher": "ms-devlabs",
+    "categories": ["Azure Boards"],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services.Cloud"
+        },
+        {
+            "id": "Microsoft.TeamFoundation.Server",
+            "version": "[17.0,)"
+        }
+    ],
+    "links": {
+        "repository": {
+            "uri": "https://github.com/microsoft/banner-settings-ado-extension"
+        },
+        "issues": {
+            "uri": "https://github.com/microsoft/banner-settings-ado-extension/issues"
+        },
+        "support": {
+            "uri": "https://github.com/microsoft/banner-settings-ado-extension/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/microsoft/banner-settings-ado-extension"
+    },
+    "icons": {
+        "default": "static/icon.png"
+    },
+    "content": {
+        "license": {
+            "path": "LICENSE"
+        },
+        "details": {
+            "path": "README.md"
+        }
+    },
+    "files": [
+        {
+            "path": "static",
+            "addressable": true
+        },
+        {
+            "path": "dist",
+            "addressable": true
+        }
+    ],
+    "scopes": [
+        "vso.settings_write"
+    ],
+    "tags": [
+        "Organization Settings",
+        "Banner",
+        "Alert",
+        "Account",
+        "Admin"
+    ],
+    "contributions": [
+        {
+            "id": "hub",
+            "type": "ms.vss-web.hub",
+            "targets": [
+                "ms.vss-web.collection-admin-hub-group"
+            ],
+            "includes": [
+                "ms.vss-tfs-web.tfs-page-data-service",
+                "ms.vss-features.host-navigation-service",
+                "ms.vss-features.extension-data-service",
+                "ms.vss-features.host-dialog-service"
+            ],
+            "properties": {
+                "name": "Banner",
+                "uri": "dist/index.html",
+                "icon": "asset://static/sample-icon.png"
+            }
+        }
+    ]
+}
