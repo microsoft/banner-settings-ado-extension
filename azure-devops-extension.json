@@ -28,7 +28,7 @@
         "uri": "https://github.com/microsoft/banner-settings-ado-extension"
     },
     "icons": {
-        "default": "../static/icon.png"
+        "default": "./static/icon.png"
     },
     "content": {
         "license": {
@@ -40,11 +40,11 @@
     },
     "files": [
         {
-            "path": "../static",
+            "path": "./static",
             "addressable": true
         },
         {
-            "path": "../dist",
+            "path": "./dist",
             "addressable": true
         }
     ],
