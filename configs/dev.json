@@ -2,5 +2,10 @@
     "id": "banner-settings-hub-dev",
     "name": "Banner Settings (Dev)",
     "public": false,
-    "baseUri": "https://localhost:44405/"
+    "baseUri": "https://localhost:44405/",
+    "contributions": [
+        {
+            "id": "hub-dev"
+        }
+    ]
 }
