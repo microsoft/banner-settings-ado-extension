@@ -2,6 +2,30 @@
     "manifestVersion": 1,
     "name": "Banner Settings",
     "description": "Allows Project Collection Admins to set sitewide banners.",
+     "id": "banner-settings-hub",
+    "name": "Banner Settings",
+    "version": "1.1.3",
+    "publisher": "engoy-dev",
+    "contributions": [
+        {
+            "id": "hub",
+            "type": "ms.vss-web.hub",
+            "targets": [
+                "ms.vss-web.collection-admin-hub-group"
+            ],
+            "includes": [
+                "ms.vss-tfs-web.tfs-page-data-service",
+                "ms.vss-features.host-navigation-service",
+                "ms.vss-features.extension-data-service",
+                "ms.vss-features.host-dialog-service"
+            ],
+            "properties": {
+                "name": "Banner (Dev)",
+                "uri": "dist/index.html",
+                "icon": "asset://static/sample-icon.png"
+            }
+        }
+    ],
     "categories": "Azure Boards",
     "targets": [
         {
