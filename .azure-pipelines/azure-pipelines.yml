@@ -54,15 +54,15 @@ stages:
       displayName: 'Lint'
 
     - script: |
-        npm run build:prod
-      displayName: 'Build (prod)'
+        npm run build:release
+      displayName: 'Build (release)'
 
     - script: |
-        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-dev.json
+        tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/dev.json
       displayName: 'Package development extension'
 
     - script: |
-        tfx extension create --manifests ./ado-manifests/azure-devops-extension-base.json --overrides-file ./ado-manifests/azure-devops-extension-prod.json
+        tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/release.json
       displayName: 'Package extension'
 
     - task: CopyFiles@2
