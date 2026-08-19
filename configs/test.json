@@ -1,0 +1,11 @@
+{
+    "id": "banner-settings-hub-test",
+    "name": "Banner Settings (test)",
+    "public": false,
+    "baseUri": "https://localhost:44405/",
+    "contributions": [
+        {
+            "id": "hub-test"
+        }
+    ]
+}
