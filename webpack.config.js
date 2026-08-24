@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
         output: {
             filename: "[name]/[name].js",
             path: path.join(__dirname, 'dist'),
-            publicPath: "/dist/"
+            publicPath: "../"
         },
         resolve: {
             extensions: [".ts", ".tsx", ".js"],
@@ -51,10 +51,11 @@ module.exports = (env, argv) => {
                     ],
                 },
                 {
-                    test: /\.woff$/,
-                    use: [{
-                        loader: 'base64-inline-loader'
-                    }]
+                    test: /\.(woff2?|eot|ttf)$/,
+                    type: "asset/resource",
+                    generator: {
+                        filename: "Hub/[hash][ext][query]"
+                    }
                 },
                 {
                     test: /\.html$/,
