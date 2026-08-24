@@ -2,9 +2,9 @@ variables:
 - name: major
   value: '2'
 - name: minor
-  value: '1911'
+  value: '1912'
 - name: extensionName
-  value: 'banner-settings-hub'
+  value: 'banner-settings'
 - name: marketplaceServiceConnection
   value: 'marketplaceServiceConnection'
 - name: publisherId
@@ -77,11 +77,11 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\engoy-dev.banner-settings-hub-dev-*.vsix" | Select-Object -First 1
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-devlabs.banner-settings-dev-*.vsix" | Select-Object -First 1
 
           if ($file) {
-              Rename-Item -Path $file.FullName -NewName "banner-settings-hub-dev.vsix"
-              Write-Host "Renamed $($file.Name) -> banner-settings-hub-dev.vsix"
+              Rename-Item -Path $file.FullName -NewName "banner-settings-dev.vsix"
+              Write-Host "Renamed $($file.Name) -> banner-settings-dev.vsix"
           } else {
               Write-Error "No matching VSIX file found"
           }
@@ -91,11 +91,11 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-eswm.banner-settings-hub-*.vsix" | Select-Object -First 1
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-devlabs.banner-settings-*.vsix" | Select-Object -First 1
 
           if ($file) {
-              Rename-Item -Path $file.FullName -NewName "banner-settings-hub-release.vsix"
-              Write-Host "Renamed $($file.Name) -> banner-settings-hub-release.vsix"
+              Rename-Item -Path $file.FullName -NewName "banner-settings-release.vsix"
+              Write-Host "Renamed $($file.Name) -> banner-settings-release.vsix"
           } else {
               Write-Error "No matching VSIX file found"
           }

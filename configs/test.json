@@ -1,5 +1,5 @@
 {
-    "id": "banner-settings-hub-test",
+    "id": "banner-settings-test",
     "name": "Banner Settings (test)",
     "public": false,
     "baseUri": "https://localhost:44405/",
