@@ -2,7 +2,7 @@ variables:
 - name: major
   value: '2'
 - name: minor
-  value: '1911'
+  value: '1912'
 - name: extensionName
   value: 'banner-settings'
 - name: marketplaceServiceConnection
