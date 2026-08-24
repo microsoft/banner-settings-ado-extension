@@ -77,7 +77,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\engoy-dev.banner-settings-dev-*.vsix" | Select-Object -First 1
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-devlabs.banner-settings-dev-*.vsix" | Select-Object -First 1
 
           if ($file) {
               Rename-Item -Path $file.FullName -NewName "banner-settings-dev.vsix"
@@ -91,7 +91,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-eswm.banner-settings-*.vsix" | Select-Object -First 1
+          $file = Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)\ms-devlabs.banner-settings-*.vsix" | Select-Object -First 1
 
           if ($file) {
               Rename-Item -Path $file.FullName -NewName "banner-settings-release.vsix"
