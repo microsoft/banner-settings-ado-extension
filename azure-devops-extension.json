@@ -3,7 +3,7 @@
     "name": "Banner Settings",
     "description": "Allows Project Collection Admins to set sitewide banners.",
     "id": "banner-settings",
-    "version": "1.1.3",
+    "version": "2.1913.0",
     "publisher": "ms-devlabs",
     "contributions": [
         {
