@@ -19,7 +19,7 @@
     "publish:release": "npm run publish:vsts-extension --vssconfig=release",
     "package:vsts-extension": "tfx extension create --manifests ./azure-devops-extension.json --overrides-file ./configs/%npm_config_vssconfig%.json",
     "publish:vsts-extension": "tfx extension publish --manifests ./azure-devops-extension.json --overrides-file ./configs/%npm_config_vssconfig%.json",
-    "dev": "webpack-dev-server --hot --progress --colors --content-base ./ --https --port 44405",
+    "dev": "webpack-dev-server --hot --progress --static-directory ./ --server-type https --port 44405",
     "lint": "tslint --project ."
   },
   "dependencies": {
@@ -40,7 +40,7 @@
     "css-minimizer-webpack-plugin": "^8.0.0",
     "file-loader": "~6.2.0",
     "mini-css-extract-plugin": "^2.10.2",
-    "node-sass": "~9.0.0",
+    "sass": "~1.77.8",
     "path": "^0.12.7",
     "rimraf": "~2.6.2",
     "sass-loader": "~16.0.7",

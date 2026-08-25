@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+import "azure-devops-ui/Core/override.css";
 import "./common.scss";
 
 import * as React from "react";
