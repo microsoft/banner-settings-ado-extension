@@ -5,6 +5,8 @@
 
 const markdownLinkRegex = /\[([^\[\]]+)\]\(([^\(\)]+)\)/g;
 const aTagLinkRegex = /<a href=["']([^<>]+)["']>([^<>]+)<\/a>/g;
+const escapedAmpersandInHtmlLinkRegex = /(?<=href='[^']+)&amp;/g;
+const nonEscapedAmpersandInMarkdownLinkRegex = /(?<=\[[^\]]+\]\([^\)]+)&(?!amp;)/g;
 
 export enum Priority {
     p0, p1, p2,
@@ -45,7 +47,8 @@ export class GlobalMessageBanner {
             const body = entity.value[title];
             banner.priority = Priority[title.slice(0, 2)];
             banner.messageId = title.slice(3);
-            banner.message = body.message.replace(aTagLinkRegex, `[$2]($1)`);
+            // Ampersands are stored escaped in links in the backend. We want to let users edit them naturally as they do in markdown
+            banner.message = body.message.replace(aTagLinkRegex, `[$2]($1)`).replace(escapedAmpersandInHtmlLinkRegex, `&`);
             banner.level = Level[this.fixTypeCase(body.level)];
             banner.expirationDate = body.expirationDate != null ? new Date(body.expirationDate) : null;
             bannerList.push(banner);
@@ -59,7 +62,7 @@ export class GlobalMessageBanner {
 
         ret[title] = {
             level: Level[this.level],
-            message: this.message.replace(markdownLinkRegex, `<a href='$2'>$1</a>`),
+            message: this.message.replace(nonEscapedAmpersandInMarkdownLinkRegex, `&amp;`).replace(markdownLinkRegex, `<a href='$2'>$1</a>`),
         };
 
         if (this.expirationDate != null) {
