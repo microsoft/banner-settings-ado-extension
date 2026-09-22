@@ -5,7 +5,10 @@
     "baseUri": "https://localhost:44405/",
     "contributions": [
         {
-            "id": "hub-dev"
+            "id": "hub-dev",
+            "properties": {
+                "name": "Banner (Dev)"
+            }
         }
     ]
 }

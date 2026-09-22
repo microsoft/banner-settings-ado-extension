@@ -2,10 +2,12 @@
     "id": "banner-settings-test",
     "name": "Banner Settings (test)",
     "public": false,
-    "baseUri": "https://localhost:44405/",
     "contributions": [
         {
-            "id": "hub-test"
+            "id": "hub-test", 
+            "properties": {
+                "name": "Banner (Test)"
+            }
         }
     ]
 }
