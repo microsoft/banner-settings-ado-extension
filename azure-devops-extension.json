@@ -3,7 +3,7 @@
     "name": "Banner Settings",
     "description": "Allows Project Collection Admins to set sitewide banners.",
     "id": "banner-settings",
-    "version": "2.1914.1",
+    "version": "2.1914.4",
     "publisher": "ms-devlabs",
     "contributions": [
         {
@@ -19,7 +19,7 @@
                 "ms.vss-features.host-dialog-service"
             ],
             "properties": {
-                "name": "Banner (Dev)",
+                "name": "Banner",
                 "uri": "dist/index.html",
                 "icon": "asset://static/sample-icon.png"
             }
