@@ -1,3 +1,5 @@
+# Banner Settings Extension
+
 Banner Settings provides a settings pane under Organization Settings to allow Project Collection Administrators to show sitewide banners. Alert your Azure DevOps users to upcoming changes or events without sending out mass emails. Compatible with Azure DevOps Services and Server.
 
 ![](static/screenshot.png)
